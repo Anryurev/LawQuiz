@@ -49,6 +49,32 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:text="@string/cheat_button" />
+
+    <ScrollView
+        android:id="@+id/answer_scroll_view"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:gravity="center"
+        android:padding="24dp"
+        tools:text="@string/answer_default">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/titleanswer_text_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/answer_default"/>
+            <TextView
+                android:id="@+id/answer_text_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+    </ScrollView>
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
