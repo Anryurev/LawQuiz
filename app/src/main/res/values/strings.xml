@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">LawQuiz</string>
+    <string name="question_default">Тут будет вопрос</string>
+    <string name="answer_default1">Ответ 1</string>
+    <string name="answer_default2">Ответ 2</string>
+    <string name="answer_default3">Ответ 3</string>
+    <string name="answer_default4">Ответ 4</string>
+    <string name="cheat_button">Воспользоваться подсказкой</string>
+</resources>
