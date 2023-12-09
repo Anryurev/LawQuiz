@@ -25,14 +25,12 @@ class MainActivity2 : AppCompatActivity(){
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main2)
-        val currentIndex = savedInstanceState?.getInt(KEY_INDEX, 0) ?: (0..quizViewModel.questionList.size).random()
+        var currentIndex = savedInstanceState?.getInt(KEY_INDEX, 0) ?: (0..(quizViewModel.questionList.size - 1)).random()
         val result_User = savedInstanceState?.getInt(KEY_RESULT, 0) ?: 0
-        /*quizViewModel.currentIndex = currentIndex
-        quizViewModel.result = result_User*/
         quizViewModel.currentIndex = currentIndex
         quizViewModel.result = result_User
         Log.d(TAG, "onCreate(Bundle?) called")
+        setContentView(R.layout.activity_main2)
         answerButton1 = findViewById(R.id.answer_button1)
         answerButton2 = findViewById(R.id.answer_button2)
         questionTextView = findViewById(R.id.question_text_view)
@@ -43,18 +41,14 @@ class MainActivity2 : AppCompatActivity(){
         answerButton4.setText(quizViewModel.questionList[currentIndex].answer4)*/
 
         answerButton1.setOnClickListener{
-            checkAnswer(quizViewModel.questionList[currentIndex].answer1, answerButton1)
-            findAnswer(quizViewModel.questionList[currentIndex].answer2, answerButton2)
-            if(quizViewModel.count != 6){
-                nextButton.visibility= View.VISIBLE
-            }
+            checkAnswer(quizViewModel.questionList[quizViewModel.currentIndex].answer1, answerButton1)
+            findAnswer(quizViewModel.questionList[quizViewModel.currentIndex].answer2, answerButton2)
+            nextButton.visibility= View.VISIBLE
         }
         answerButton2.setOnClickListener{
-            checkAnswer(quizViewModel.questionList[currentIndex].answer2, answerButton2)
-            findAnswer(quizViewModel.questionList[currentIndex].answer1, answerButton1)
-            if(quizViewModel.count != 6){
-                nextButton.visibility= View.VISIBLE
-            }
+            checkAnswer(quizViewModel.questionList[quizViewModel.currentIndex].answer2, answerButton2)
+            findAnswer(quizViewModel.questionList[quizViewModel.currentIndex].answer1, answerButton1)
+            nextButton.visibility= View.VISIBLE
         }
         nextButton.setOnClickListener {
             answerButton1.visibility= View.VISIBLE
@@ -97,7 +91,6 @@ class MainActivity2 : AppCompatActivity(){
         Log.d(TAG, "onDestroy() called")
     }
     private fun updateQuestion() {
-        quizViewModel.moveToNext()
         val questionTextResId = quizViewModel.currentQuestionText
         questionTextView.setText(questionTextResId)
         answerButton1.setText(quizViewModel.questionList[quizViewModel.currentIndex].answer1)
@@ -113,9 +106,9 @@ class MainActivity2 : AppCompatActivity(){
             answerButton.setBackgroundColor(Color.RED)
         }
     }
-    private fun findAnswer(userAnswer: String, answerButton: Button){
+    private fun findAnswer(checkedAnswer: String, answerButton: Button){
         val correctAnswer = quizViewModel.currentQuestionAnswer
-        if (userAnswer == correctAnswer) {
+        if (checkedAnswer == correctAnswer) {
             answerButton.setBackgroundColor(Color.GREEN)
         }
         else{

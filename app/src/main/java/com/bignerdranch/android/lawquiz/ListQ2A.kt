@@ -24,14 +24,8 @@ class ListQ2A : ViewModel(){
     val currentQuestionText: String
         get() = questionList[currentIndex].question
     fun moveToNext() {
-        if (check == 1){
-            check = 0
             count+=1
             questionList.removeAt(currentIndex)
-        }
-        else{
-            check = 1
-        }
-        currentIndex = (0..questionList.size - 1).random()
+            currentIndex =  (0..questionList.size).random()
     }
 }
