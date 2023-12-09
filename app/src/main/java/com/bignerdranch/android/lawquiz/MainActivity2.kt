@@ -113,11 +113,4 @@ class MainActivity2 : AppCompatActivity(){
             answerButton.visibility = View.INVISIBLE
         }
     }
-    /*companion object{
-        fun newIntent(packageContext: Context, rand: Int): Intent {
-            return Intent(packageContext, MainActivity::class.java).apply {
-                putExtra(RAND_TEXT, rand)
-            }
-        }
-    }*/
 }

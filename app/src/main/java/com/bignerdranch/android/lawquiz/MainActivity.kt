@@ -37,8 +37,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         val currentIndex = savedInstanceState?.getInt(KEY_INDEX, 0) ?: (0..quizViewModel.questionList.size - 1).random()
         val result_User = intent.getIntExtra(KEY_RESULT, 0)
+        val cheat = savedInstanceState?.getInt(KEY_CHEAT, 2)?:2
         quizViewModel.currentIndex = currentIndex
         quizViewModel.result = result_User
+        quizViewModel.cheat = cheat
         Log.d(TAG, "onCreate(Bundle?) called")
         answerButton1 = findViewById(R.id.answer_button1)
         answerButton2 = findViewById(R.id.answer_button2)
@@ -53,6 +55,7 @@ class MainActivity : AppCompatActivity() {
             findAnswer(answerButton2.text.toString(), answerButton2)
             findAnswer(answerButton3.text.toString(), answerButton3)
             findAnswer(answerButton4.text.toString(), answerButton4)
+            cheatButton.visibility = View.INVISIBLE
             nextButton.visibility= View.VISIBLE
         }
         answerButton2.setOnClickListener{
@@ -60,6 +63,7 @@ class MainActivity : AppCompatActivity() {
             findAnswer(answerButton1.text.toString(), answerButton1)
             findAnswer(answerButton3.text.toString(), answerButton3)
             findAnswer(answerButton4.text.toString(), answerButton4)
+            cheatButton.visibility = View.INVISIBLE
             nextButton.visibility= View.VISIBLE
         }
         answerButton3.setOnClickListener{
@@ -67,6 +71,7 @@ class MainActivity : AppCompatActivity() {
             findAnswer(answerButton1.text.toString(), answerButton1)
             findAnswer(answerButton2.text.toString(), answerButton2)
             findAnswer(answerButton4.text.toString(), answerButton4)
+            cheatButton.visibility = View.INVISIBLE
             nextButton.visibility= View.VISIBLE
         }
         answerButton4.setOnClickListener{
@@ -74,11 +79,12 @@ class MainActivity : AppCompatActivity() {
             findAnswer(answerButton1.text.toString(), answerButton1)
             findAnswer(answerButton2.text.toString(), answerButton2)
             findAnswer(answerButton3.text.toString(), answerButton3)
+            cheatButton.visibility = View.INVISIBLE
             nextButton.visibility= View.VISIBLE
         }
         cheatButton.setOnClickListener(){
             quizViewModel.cheat -= 1
-            if (quizViewModel.cheat == 0){
+            if (quizViewModel.cheat <= 0){
                 cheatButton.visibility = View.INVISIBLE
             }
             var i = 0
@@ -113,6 +119,9 @@ class MainActivity : AppCompatActivity() {
             answerButton2.visibility= View.VISIBLE
             answerButton3.visibility= View.VISIBLE
             answerButton4.visibility= View.VISIBLE
+            if (quizViewModel.cheat > 0){
+                cheatButton.visibility = View.VISIBLE
+            }
             answerButton1.setBackgroundColor(Color.parseColor("#0F8EC8"))
             answerButton2.setBackgroundColor(Color.parseColor("#0F8EC8"))
             answerButton3.setBackgroundColor(Color.parseColor("#0F8EC8"))
@@ -120,7 +129,7 @@ class MainActivity : AppCompatActivity() {
             quizViewModel.moveToNext()
             when{
                 quizViewModel.count == 6 -> {
-                    Toast.makeText(this, "Your result = " + quizViewModel.result, Toast.LENGTH_SHORT).show()
+                    /*Toast.makeText(this, "Your result = " + quizViewModel.result, Toast.LENGTH_SHORT).show()*/
                     val intent = StartActivity.newIntent(this@MainActivity, quizViewModel.result)
                     startActivity(intent)
                 }
@@ -192,7 +201,7 @@ class MainActivity : AppCompatActivity() {
     private fun checkAnswer(userAnswer: String, answerButton: Button) {
         val correctAnswer = quizViewModel.currentQuestionAnswer
         if (userAnswer == correctAnswer) {
-            quizViewModel.result += 1
+            quizViewModel.result += 2
             answerButton.setBackgroundColor(Color.GREEN)
         }
         else{
