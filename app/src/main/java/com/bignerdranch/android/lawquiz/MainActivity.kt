@@ -17,7 +17,7 @@ private const val KEY_INDEX = "index"
 private const val KEY_RESULT = "result"
 
 class MainActivity : AppCompatActivity() {
-    private var rand = -1
+    /*private var rand = -1*/
     private lateinit var answerButton1: Button
     private lateinit var answerButton2: Button
     private lateinit var answerButton3: Button
