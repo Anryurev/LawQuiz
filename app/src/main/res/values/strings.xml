@@ -9,4 +9,6 @@
     <string name="next_button">Next</string>
     <string name="prev_button">Prev</string>
     <string name="answer_default">Тут будет ответ</string>
+    <string name="warning_text">Вы уверенны, что хотите сделать это?</string>
+    <string name="show_answer_button">Показать ответ</string>
 </resources>

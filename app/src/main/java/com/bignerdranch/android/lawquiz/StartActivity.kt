@@ -15,7 +15,7 @@ class StartActivity : AppCompatActivity() {
         playButton = findViewById(R.id.play_button)
 
         playButton.setOnClickListener(){
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, MainActivity2::class.java)
             startActivity(intent)
         }
     }
