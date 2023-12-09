@@ -1,16 +1,15 @@
 package com.bignerdranch.android.lawquiz
 
-import android.content.Context
-import android.content.Intent
 import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.TextView
-import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProviders
+
 
 private const val TAG = "MainActivity"
 private const val KEY_INDEX = "index"
@@ -22,7 +21,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var answerButton2: Button
     private lateinit var answerButton3: Button
     private lateinit var answerButton4: Button
-    private lateinit var nextButton: Button
+    private lateinit var nextButton: ImageButton
     private lateinit var questionTextView: TextView
     private val quizViewModel: ListQ4A by
     lazy {
@@ -32,7 +31,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val currentIndex = savedInstanceState?.getInt(KEY_INDEX, 0) ?: 0
-        val result_User = savedInstanceState?.getInt(KEY_RESULT, 0)?:0
+        val result_User = savedInstanceState?.getInt(KEY_RESULT, 0) ?: 0
         quizViewModel.currentIndex = currentIndex
         quizViewModel.result = result_User
         quizViewModel.currentIndex = currentIndex
@@ -43,6 +42,7 @@ class MainActivity : AppCompatActivity() {
         answerButton3 = findViewById(R.id.answer_button3)
         answerButton4 = findViewById(R.id.answer_button4)
         questionTextView = findViewById(R.id.question_text_view)
+        nextButton = findViewById(R.id.next_button)
         /*answerButton1.setText(quizViewModel.questionList[currentIndex].answer1)
         answerButton2.setText(quizViewModel.questionList[currentIndex].answer2)
         answerButton3.setText(quizViewModel.questionList[currentIndex].answer3)
@@ -53,34 +53,38 @@ class MainActivity : AppCompatActivity() {
             findAnswer(quizViewModel.questionList[currentIndex].answer2, answerButton2)
             findAnswer(quizViewModel.questionList[currentIndex].answer3, answerButton3)
             findAnswer(quizViewModel.questionList[currentIndex].answer4, answerButton4)
+            nextButton.visibility= View.VISIBLE
         }
         answerButton2.setOnClickListener{
             checkAnswer(quizViewModel.questionList[currentIndex].answer2, answerButton2)
             findAnswer(quizViewModel.questionList[currentIndex].answer1, answerButton1)
             findAnswer(quizViewModel.questionList[currentIndex].answer3, answerButton3)
             findAnswer(quizViewModel.questionList[currentIndex].answer4, answerButton4)
+            nextButton.visibility= View.VISIBLE
         }
         answerButton3.setOnClickListener{
             checkAnswer(quizViewModel.questionList[currentIndex].answer3, answerButton3)
             findAnswer(quizViewModel.questionList[currentIndex].answer1, answerButton1)
             findAnswer(quizViewModel.questionList[currentIndex].answer2, answerButton2)
             findAnswer(quizViewModel.questionList[currentIndex].answer4, answerButton4)
+            nextButton.visibility= View.VISIBLE
         }
         answerButton4.setOnClickListener{
             checkAnswer(quizViewModel.questionList[currentIndex].answer4, answerButton4)
             findAnswer(quizViewModel.questionList[currentIndex].answer1, answerButton1)
             findAnswer(quizViewModel.questionList[currentIndex].answer2, answerButton2)
             findAnswer(quizViewModel.questionList[currentIndex].answer3, answerButton3)
+            nextButton.visibility= View.VISIBLE
         }
         nextButton.setOnClickListener {
             answerButton1.visibility= View.VISIBLE
             answerButton2.visibility= View.VISIBLE
             answerButton3.visibility= View.VISIBLE
             answerButton4.visibility= View.VISIBLE
-            answerButton1.setBackgroundColor(Color.MAGENTA)
-            answerButton2.setBackgroundColor(Color.MAGENTA)
-            answerButton3.setBackgroundColor(Color.MAGENTA)
-            answerButton4.setBackgroundColor(Color.MAGENTA)
+            answerButton1.setBackgroundColor(Color.parseColor("#0F8EC8"))
+            answerButton2.setBackgroundColor(Color.parseColor("#0F8EC8"))
+            answerButton3.setBackgroundColor(Color.parseColor("#0F8EC8"))
+            answerButton4.setBackgroundColor(Color.parseColor("#0F8EC8"))
             quizViewModel.moveToNext()
             if(quizViewModel.count == 6){
                 nextButton.visibility= View.INVISIBLE
