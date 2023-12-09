@@ -1,5 +1,6 @@
 package com.bignerdranch.android.lawquiz
 
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
@@ -8,6 +9,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProviders
 
@@ -31,10 +33,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val currentIndex = savedInstanceState?.getInt(KEY_INDEX, 0) ?: 0
-        val result_User = savedInstanceState?.getInt(KEY_RESULT, 0) ?: 0
-        quizViewModel.currentIndex = currentIndex
-        quizViewModel.result = result_User
+        val currentIndex = savedInstanceState?.getInt(KEY_INDEX, 0) ?: (0..quizViewModel.questionList.size - 1).random()
+        val result_User = intent.getIntExtra(KEY_RESULT, 0)
         quizViewModel.currentIndex = currentIndex
         quizViewModel.result = result_User
         Log.d(TAG, "onCreate(Bundle?) called")
@@ -50,40 +50,32 @@ class MainActivity : AppCompatActivity() {
         answerButton4.setText(quizViewModel.questionList[currentIndex].answer4)*/
 
         answerButton1.setOnClickListener{
-            checkAnswer(quizViewModel.questionList[currentIndex].answer1, answerButton1)
-            findAnswer(quizViewModel.questionList[currentIndex].answer2, answerButton2)
-            findAnswer(quizViewModel.questionList[currentIndex].answer3, answerButton3)
-            findAnswer(quizViewModel.questionList[currentIndex].answer4, answerButton4)
-            if(quizViewModel.count != 6){
-                nextButton.visibility= View.VISIBLE
-            }
+            checkAnswer(quizViewModel.questionList[quizViewModel.currentIndex].answer1, answerButton1)
+            findAnswer(quizViewModel.questionList[quizViewModel.currentIndex].answer2, answerButton2)
+            findAnswer(quizViewModel.questionList[quizViewModel.currentIndex].answer3, answerButton3)
+            findAnswer(quizViewModel.questionList[quizViewModel.currentIndex].answer4, answerButton4)
+            nextButton.visibility= View.VISIBLE
         }
         answerButton2.setOnClickListener{
-            checkAnswer(quizViewModel.questionList[currentIndex].answer2, answerButton2)
-            findAnswer(quizViewModel.questionList[currentIndex].answer1, answerButton1)
-            findAnswer(quizViewModel.questionList[currentIndex].answer3, answerButton3)
-            findAnswer(quizViewModel.questionList[currentIndex].answer4, answerButton4)
-            if(quizViewModel.count != 6){
-                nextButton.visibility= View.VISIBLE
-            }
+            checkAnswer(quizViewModel.questionList[quizViewModel.currentIndex].answer2, answerButton2)
+            findAnswer(quizViewModel.questionList[quizViewModel.currentIndex].answer1, answerButton1)
+            findAnswer(quizViewModel.questionList[quizViewModel.currentIndex].answer3, answerButton3)
+            findAnswer(quizViewModel.questionList[quizViewModel.currentIndex].answer4, answerButton4)
+            nextButton.visibility= View.VISIBLE
         }
         answerButton3.setOnClickListener{
-            checkAnswer(quizViewModel.questionList[currentIndex].answer3, answerButton3)
-            findAnswer(quizViewModel.questionList[currentIndex].answer1, answerButton1)
-            findAnswer(quizViewModel.questionList[currentIndex].answer2, answerButton2)
-            findAnswer(quizViewModel.questionList[currentIndex].answer4, answerButton4)
-            if(quizViewModel.count != 6){
-                nextButton.visibility= View.VISIBLE
-            }
+            checkAnswer(quizViewModel.questionList[quizViewModel.currentIndex].answer3, answerButton3)
+            findAnswer(quizViewModel.questionList[quizViewModel.currentIndex].answer1, answerButton1)
+            findAnswer(quizViewModel.questionList[quizViewModel.currentIndex].answer2, answerButton2)
+            findAnswer(quizViewModel.questionList[quizViewModel.currentIndex].answer4, answerButton4)
+            nextButton.visibility= View.VISIBLE
         }
         answerButton4.setOnClickListener{
-            checkAnswer(quizViewModel.questionList[currentIndex].answer4, answerButton4)
-            findAnswer(quizViewModel.questionList[currentIndex].answer1, answerButton1)
-            findAnswer(quizViewModel.questionList[currentIndex].answer2, answerButton2)
-            findAnswer(quizViewModel.questionList[currentIndex].answer3, answerButton3)
-            if(quizViewModel.count != 6){
-                nextButton.visibility= View.VISIBLE
-            }
+            checkAnswer(quizViewModel.questionList[quizViewModel.currentIndex].answer4, answerButton4)
+            findAnswer(quizViewModel.questionList[quizViewModel.currentIndex].answer1, answerButton1)
+            findAnswer(quizViewModel.questionList[quizViewModel.currentIndex].answer2, answerButton2)
+            findAnswer(quizViewModel.questionList[quizViewModel.currentIndex].answer3, answerButton3)
+            nextButton.visibility= View.VISIBLE
         }
         nextButton.setOnClickListener {
             answerButton1.visibility= View.VISIBLE
@@ -95,10 +87,14 @@ class MainActivity : AppCompatActivity() {
             answerButton3.setBackgroundColor(Color.parseColor("#0F8EC8"))
             answerButton4.setBackgroundColor(Color.parseColor("#0F8EC8"))
             quizViewModel.moveToNext()
-            if(quizViewModel.count == 6){
-                nextButton.visibility= View.INVISIBLE
+            when{
+                quizViewModel.count == 6 -> {
+                    Toast.makeText(this, "Your result = " + quizViewModel.result, Toast.LENGTH_SHORT).show()
+                    val intent = StartActivity.newIntent(this@MainActivity, quizViewModel.result)
+                    startActivity(intent)
+                }
+                else -> updateQuestion()
             }
-            updateQuestion()
         }
         updateQuestion()
     }
@@ -155,11 +151,11 @@ class MainActivity : AppCompatActivity() {
             answerButton.visibility = View.INVISIBLE
         }
     }
-    /*companion object{
-        fun newIntent(packageContext: Context, rand: Int): Intent {
+    companion object{
+        fun newIntent(packageContext: Context, result: Int): Intent {
             return Intent(packageContext, MainActivity::class.java).apply {
-                putExtra(RAND_TEXT, rand)
+                putExtra(KEY_RESULT, result)
             }
         }
-    }*/
+    }
 }

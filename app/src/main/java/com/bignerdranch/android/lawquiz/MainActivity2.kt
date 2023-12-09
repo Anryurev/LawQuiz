@@ -56,11 +56,13 @@ class MainActivity2 : AppCompatActivity(){
             answerButton1.setBackgroundColor(Color.parseColor("#0F8EC8"))
             answerButton2.setBackgroundColor(Color.parseColor("#0F8EC8"))
             quizViewModel.moveToNext()
-            if(quizViewModel.count == 3){
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
+            when{
+                quizViewModel.count == 3 -> {
+                    val intent = MainActivity.newIntent(this@MainActivity2, quizViewModel.result)
+                    startActivity(intent)
+                }
+                else -> updateQuestion()
             }
-            updateQuestion()
         }
         updateQuestion()
     }
