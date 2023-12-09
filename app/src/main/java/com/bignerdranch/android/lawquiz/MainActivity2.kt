@@ -26,10 +26,10 @@ class MainActivity2 : AppCompatActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main2)
-        val currentIndex = savedInstanceState?.getInt(KEY_INDEX, 0) ?: 0
+        val currentIndex = savedInstanceState?.getInt(KEY_INDEX, 0) ?: (0..quizViewModel.questionList.size).random()
         val result_User = savedInstanceState?.getInt(KEY_RESULT, 0) ?: 0
-        quizViewModel.currentIndex = currentIndex
-        quizViewModel.result = result_User
+        /*quizViewModel.currentIndex = currentIndex
+        quizViewModel.result = result_User*/
         quizViewModel.currentIndex = currentIndex
         quizViewModel.result = result_User
         Log.d(TAG, "onCreate(Bundle?) called")
@@ -62,8 +62,8 @@ class MainActivity2 : AppCompatActivity(){
             answerButton1.setBackgroundColor(Color.parseColor("#0F8EC8"))
             answerButton2.setBackgroundColor(Color.parseColor("#0F8EC8"))
             quizViewModel.moveToNext()
-            if(quizViewModel.count == 6){
-                val intent = Intent(this, MainActivity2::class.java)
+            if(quizViewModel.count == 3){
+                val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
             }
             updateQuestion()
@@ -97,6 +97,7 @@ class MainActivity2 : AppCompatActivity(){
         Log.d(TAG, "onDestroy() called")
     }
     private fun updateQuestion() {
+        quizViewModel.moveToNext()
         val questionTextResId = quizViewModel.currentQuestionText
         questionTextView.setText(questionTextResId)
         answerButton1.setText(quizViewModel.questionList[quizViewModel.currentIndex].answer1)

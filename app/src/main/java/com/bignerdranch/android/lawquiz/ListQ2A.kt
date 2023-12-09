@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 
 class ListQ2A : ViewModel(){
     var count = 0
+    var check = 0
     var questionList: MutableList<Question2A> = mutableListOf(
         Question2A("К чему относится конфронтация и перекрёстный допрос в уголовном процессе?", "Доказывание","Доказывание","Доказательства"),
         Question2A("Если потерпевший даёт показания, то это в уголовном процессе является ...", "Доказательства","Доказывание","Доказательства"),
@@ -23,8 +24,14 @@ class ListQ2A : ViewModel(){
     val currentQuestionText: String
         get() = questionList[currentIndex].question
     fun moveToNext() {
-        count+=1
-        questionList.removeAt(currentIndex)
+        if (check == 1){
+            check = 0
+            count+=1
+            questionList.removeAt(currentIndex)
+        }
+        else{
+            check = 1
+        }
         currentIndex = (0..questionList.size - 1).random()
     }
 }
