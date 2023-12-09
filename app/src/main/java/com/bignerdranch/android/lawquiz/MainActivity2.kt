@@ -35,10 +35,6 @@ class MainActivity2 : AppCompatActivity(){
         answerButton2 = findViewById(R.id.answer_button2)
         questionTextView = findViewById(R.id.question_text_view)
         nextButton = findViewById(R.id.next_button)
-        /*answerButton1.setText(quizViewModel.questionList[currentIndex].answer1)
-        answerButton2.setText(quizViewModel.questionList[currentIndex].answer2)
-        answerButton3.setText(quizViewModel.questionList[currentIndex].answer3)
-        answerButton4.setText(quizViewModel.questionList[currentIndex].answer4)*/
 
         answerButton1.setOnClickListener{
             checkAnswer(quizViewModel.questionList[quizViewModel.currentIndex].answer1, answerButton1)

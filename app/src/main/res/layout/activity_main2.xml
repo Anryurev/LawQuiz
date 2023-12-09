@@ -35,14 +35,6 @@
             android:text="@string/answer_default2" />
     </LinearLayout>
 
-    <Button
-        android:id="@+id/cheat_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:backgroundTint="#0F8EC8"
-        android:text="@string/cheat_button" />
-
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

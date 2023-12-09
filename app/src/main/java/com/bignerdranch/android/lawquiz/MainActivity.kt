@@ -19,13 +19,13 @@ private const val KEY_INDEX = "index"
 private const val KEY_RESULT = "result"
 
 class MainActivity : AppCompatActivity() {
-    /*private var rand = -1*/
     private lateinit var answerButton1: Button
     private lateinit var answerButton2: Button
     private lateinit var answerButton3: Button
     private lateinit var answerButton4: Button
     private lateinit var nextButton: ImageButton
     private lateinit var questionTextView: TextView
+    private lateinit var cheatButton: Button
     private val quizViewModel: ListQ4A by
     lazy {
         ViewModelProviders.of(this).get(ListQ4A::class.java)
@@ -42,40 +42,47 @@ class MainActivity : AppCompatActivity() {
         answerButton2 = findViewById(R.id.answer_button2)
         answerButton3 = findViewById(R.id.answer_button3)
         answerButton4 = findViewById(R.id.answer_button4)
+        cheatButton = findViewById(R.id.cheat_button)
         questionTextView = findViewById(R.id.question_text_view)
         nextButton = findViewById(R.id.next_button)
-        /*answerButton1.setText(quizViewModel.questionList[currentIndex].answer1)
-        answerButton2.setText(quizViewModel.questionList[currentIndex].answer2)
-        answerButton3.setText(quizViewModel.questionList[currentIndex].answer3)
-        answerButton4.setText(quizViewModel.questionList[currentIndex].answer4)*/
 
         answerButton1.setOnClickListener{
-            checkAnswer(quizViewModel.questionList[quizViewModel.currentIndex].answer1, answerButton1)
-            findAnswer(quizViewModel.questionList[quizViewModel.currentIndex].answer2, answerButton2)
-            findAnswer(quizViewModel.questionList[quizViewModel.currentIndex].answer3, answerButton3)
-            findAnswer(quizViewModel.questionList[quizViewModel.currentIndex].answer4, answerButton4)
+            checkAnswer(quizViewModel.questionList[quizViewModel.currentIndex].answer[1], answerButton1)
+            findAnswer(quizViewModel.questionList[quizViewModel.currentIndex].answer[2], answerButton2)
+            findAnswer(quizViewModel.questionList[quizViewModel.currentIndex].answer[3], answerButton3)
+            findAnswer(quizViewModel.questionList[quizViewModel.currentIndex].answer[4], answerButton4)
             nextButton.visibility= View.VISIBLE
         }
         answerButton2.setOnClickListener{
-            checkAnswer(quizViewModel.questionList[quizViewModel.currentIndex].answer2, answerButton2)
-            findAnswer(quizViewModel.questionList[quizViewModel.currentIndex].answer1, answerButton1)
-            findAnswer(quizViewModel.questionList[quizViewModel.currentIndex].answer3, answerButton3)
-            findAnswer(quizViewModel.questionList[quizViewModel.currentIndex].answer4, answerButton4)
+            checkAnswer(quizViewModel.questionList[quizViewModel.currentIndex].answer[2], answerButton2)
+            findAnswer(quizViewModel.questionList[quizViewModel.currentIndex].answer[1], answerButton1)
+            findAnswer(quizViewModel.questionList[quizViewModel.currentIndex].answer[3], answerButton3)
+            findAnswer(quizViewModel.questionList[quizViewModel.currentIndex].answer[4], answerButton4)
             nextButton.visibility= View.VISIBLE
         }
         answerButton3.setOnClickListener{
-            checkAnswer(quizViewModel.questionList[quizViewModel.currentIndex].answer3, answerButton3)
-            findAnswer(quizViewModel.questionList[quizViewModel.currentIndex].answer1, answerButton1)
-            findAnswer(quizViewModel.questionList[quizViewModel.currentIndex].answer2, answerButton2)
-            findAnswer(quizViewModel.questionList[quizViewModel.currentIndex].answer4, answerButton4)
+            checkAnswer(quizViewModel.questionList[quizViewModel.currentIndex].answer[3], answerButton3)
+            findAnswer(quizViewModel.questionList[quizViewModel.currentIndex].answer[1], answerButton1)
+            findAnswer(quizViewModel.questionList[quizViewModel.currentIndex].answer[2], answerButton2)
+            findAnswer(quizViewModel.questionList[quizViewModel.currentIndex].answer[4], answerButton4)
             nextButton.visibility= View.VISIBLE
         }
         answerButton4.setOnClickListener{
-            checkAnswer(quizViewModel.questionList[quizViewModel.currentIndex].answer4, answerButton4)
-            findAnswer(quizViewModel.questionList[quizViewModel.currentIndex].answer1, answerButton1)
-            findAnswer(quizViewModel.questionList[quizViewModel.currentIndex].answer2, answerButton2)
-            findAnswer(quizViewModel.questionList[quizViewModel.currentIndex].answer3, answerButton3)
+            checkAnswer(quizViewModel.questionList[quizViewModel.currentIndex].answer[4], answerButton4)
+            findAnswer(quizViewModel.questionList[quizViewModel.currentIndex].answer[1], answerButton1)
+            findAnswer(quizViewModel.questionList[quizViewModel.currentIndex].answer[2], answerButton2)
+            findAnswer(quizViewModel.questionList[quizViewModel.currentIndex].answer[3], answerButton3)
             nextButton.visibility= View.VISIBLE
+        }
+        cheatButton.setOnClickListener(){
+            quizViewModel.cheat -= 1
+            if (quizViewModel.cheat == 0){
+                cheatButton.visibility = View.INVISIBLE
+            }
+            for (i in 0..1){
+                var rnd = (0..3).random()
+
+            }
         }
         nextButton.setOnClickListener {
             answerButton1.visibility= View.VISIBLE
@@ -127,10 +134,10 @@ class MainActivity : AppCompatActivity() {
     private fun updateQuestion() {
         val questionTextResId = quizViewModel.currentQuestionText
         questionTextView.setText(questionTextResId)
-        answerButton1.setText(quizViewModel.questionList[quizViewModel.currentIndex].answer1)
-        answerButton2.setText(quizViewModel.questionList[quizViewModel.currentIndex].answer2)
-        answerButton3.setText(quizViewModel.questionList[quizViewModel.currentIndex].answer3)
-        answerButton4.setText(quizViewModel.questionList[quizViewModel.currentIndex].answer4)
+        answerButton1.setText(quizViewModel.questionList[quizViewModel.currentIndex].answer[1])
+        answerButton2.setText(quizViewModel.questionList[quizViewModel.currentIndex].answer[2])
+        answerButton3.setText(quizViewModel.questionList[quizViewModel.currentIndex].answer[3])
+        answerButton4.setText(quizViewModel.questionList[quizViewModel.currentIndex].answer[4])
     }
     private fun checkAnswer(userAnswer: String, answerButton: Button) {
         val correctAnswer = quizViewModel.currentQuestionAnswer
