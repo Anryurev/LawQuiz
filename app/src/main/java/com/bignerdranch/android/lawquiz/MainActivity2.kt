@@ -53,9 +53,10 @@ class MainActivity2 : AppCompatActivity(){
             answerButton2.setBackgroundColor(Color.parseColor("#0F8EC8"))
             quizViewModel.moveToNext()
             when{
-                quizViewModel.count == 3 -> {
+                quizViewModel.count == 4 -> {
                     val intent = MainActivity.newIntent(this@MainActivity2, quizViewModel.result)
                     startActivity(intent)
+                    onDestroy() //DANGER!!!
                 }
                 else -> updateQuestion()
             }
