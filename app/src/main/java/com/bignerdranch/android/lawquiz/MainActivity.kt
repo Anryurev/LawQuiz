@@ -132,7 +132,7 @@ class MainActivity : AppCompatActivity() {
                     /*Toast.makeText(this, "Your result = " + quizViewModel.result, Toast.LENGTH_SHORT).show()*/
                     val intent = StartActivity.newIntent(this@MainActivity, quizViewModel.result)
                     startActivity(intent)
-                    onDestroy() //DANGER!!!
+
                 }
                 else -> updateQuestion()
             }

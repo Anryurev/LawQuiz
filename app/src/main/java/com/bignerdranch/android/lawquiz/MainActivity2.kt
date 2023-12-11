@@ -56,7 +56,6 @@ class MainActivity2 : AppCompatActivity(){
                 quizViewModel.count == 4 -> {
                     val intent = MainActivity.newIntent(this@MainActivity2, quizViewModel.result)
                     startActivity(intent)
-                    onDestroy() //DANGER!!!
                 }
                 else -> updateQuestion()
             }
