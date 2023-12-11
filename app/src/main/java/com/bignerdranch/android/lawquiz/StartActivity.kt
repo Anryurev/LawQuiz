@@ -44,6 +44,7 @@ class StartActivity : AppCompatActivity() {
             cheat = 0
             val intent = Intent(this, MainActivity2::class.java)
             startActivity(intent)
+            finish()
         }
     }
     override fun onSaveInstanceState(savedInstanceState: Bundle) {
@@ -58,6 +59,9 @@ class StartActivity : AppCompatActivity() {
                 putExtra(RESULT, result)
                 putExtra(CHEAT, cheat)
             }
+        }
+        fun newIntent(packageContext: Context): Intent{
+            return Intent(packageContext, StartActivity::class.java)
         }
     }
 }

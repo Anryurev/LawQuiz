@@ -147,6 +147,10 @@ class MainActivity : AppCompatActivity() {
         savedInstanceState.putInt(KEY_RESULT, quizViewModel.result)
         savedInstanceState.putInt(KEY_CHEAT, quizViewModel.cheat)
     }
+    override fun onBackPressed() {
+        startActivity(StartActivity.newIntent(this@MainActivity))
+        finish()
+    }
     override fun onStart() {
         super.onStart()
         Log.d(TAG, "onStart() called")

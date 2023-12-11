@@ -1,6 +1,5 @@
 package com.bignerdranch.android.lawquiz
 
-import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
@@ -69,6 +68,10 @@ class MainActivity2 : AppCompatActivity(){
         Log.i(TAG, "onSaveInstanceState")
         savedInstanceState.putInt(KEY_INDEX, quizViewModel.currentIndex)
         savedInstanceState.putInt(KEY_RESULT, quizViewModel.result)
+    }
+    override fun onBackPressed() {
+        startActivity(StartActivity.newIntent(this@MainActivity2))
+        finish()
     }
     override fun onStart() {
         super.onStart()
