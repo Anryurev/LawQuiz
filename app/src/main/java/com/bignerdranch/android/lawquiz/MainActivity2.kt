@@ -49,6 +49,7 @@ class MainActivity2 : AppCompatActivity(){
         nextButton.setOnClickListener {
             answerButton1.visibility= View.VISIBLE
             answerButton2.visibility= View.VISIBLE
+            nextButton.visibility = View.INVISIBLE
             answerButton1.setBackgroundColor(Color.parseColor("#0F8EC8"))
             answerButton2.setBackgroundColor(Color.parseColor("#0F8EC8"))
             quizViewModel.moveToNext()
@@ -56,6 +57,7 @@ class MainActivity2 : AppCompatActivity(){
                 quizViewModel.count == 4 -> {
                     val intent = MainActivity.newIntent(this@MainActivity2, quizViewModel.result)
                     startActivity(intent)
+                    finish()
                 }
                 else -> updateQuestion()
             }

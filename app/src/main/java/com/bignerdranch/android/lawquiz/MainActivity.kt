@@ -119,6 +119,7 @@ class MainActivity : AppCompatActivity() {
             answerButton2.visibility= View.VISIBLE
             answerButton3.visibility= View.VISIBLE
             answerButton4.visibility= View.VISIBLE
+            nextButton.visibility= View.INVISIBLE
             if (quizViewModel.cheat > 0){
                 cheatButton.visibility = View.VISIBLE
             }
@@ -130,9 +131,9 @@ class MainActivity : AppCompatActivity() {
             when{
                 quizViewModel.count == 6 -> {
                     /*Toast.makeText(this, "Your result = " + quizViewModel.result, Toast.LENGTH_SHORT).show()*/
-                    val intent = StartActivity.newIntent(this@MainActivity, quizViewModel.result)
+                    val intent = StartActivity.newIntent(this@MainActivity, quizViewModel.result, (2 - quizViewModel.cheat))
                     startActivity(intent)
-
+                    finish()
                 }
                 else -> updateQuestion()
             }
